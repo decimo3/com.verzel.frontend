@@ -1,37 +1,47 @@
-import React from "react";
+// Inicio.js
+
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Banner from "./Banner";
 import List from "./List";
-export default function Inicio(){
-  var elements = [];
-  axios.get("https://localhost:7207/carros", {withCredentials: false})
-    .then((response)=>{
-      console.log(response);
-      for(let i=0;i<5;i++) {
-        elements.push(<List key={i} />);
-      }
-    })
-    .catch((error)=> {
-      console.log(error);
-    });
+import { BASE_URL } from "../environment";
 
-  if(!elements){
+async function getCars() {
+  try {
+    const response = await axios.get(BASE_URL + "/carros");
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+}
+
+export default function Inicio() {
+  const [carros, setCarros] = useState([]);
+
+  useEffect(() => {
+    async function fetchCars() {
+      const data = await getCars();
+      setCarros(data);
+    }
+    fetchCars();
+  }, []);
+
+  if (carros.length === 0) {
     return (
       <div>
-        <h1>
-          Erro na internet!
-        </h1>
-        <p>
-          Por algum motivo a requisição não pode ser concluída.
-        </p>
+        <h1>Erro na internet!</h1>
+        <p>Por algum motivo a requisição não pode ser concluída.</p>
       </div>
-      );
-  } 
+    );
+  }
 
   return (
     <div className="container pb-3">
       <Banner />
-      {elements}
+      {carros.map((carro, index) => (
+        <List key={index} carro={carro} />
+      ))}
     </div>
   );
 }

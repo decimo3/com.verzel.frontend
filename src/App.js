@@ -4,6 +4,8 @@ import Header from "./Header";
 import Inicio from "./InicioComponent/Inicio";
 import Footer from "./Footer";
 import NotFound from './NotFound';
+import ListCarro from './Manager/ListCarro';
+
 export default function App() {
     return (
       <Router>
@@ -12,6 +14,7 @@ export default function App() {
           <Route exact path="/" element={<Inicio/>} />
           <Route path="/Login" element={<Login/>} />
           <Route path="*" component={<NotFound/>} />
+          <Route path="/ListCarro" component={<ListCarro/>} />
           {/* <Route path="/Create" element={<Create/>} />
           <Route path="/Edit" element={<Edit/>} />
           <Route path="/Details" element={<Details/>} />

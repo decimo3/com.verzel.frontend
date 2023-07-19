@@ -1,16 +1,22 @@
+// List.js
+
 import React from "react";
-export default function List(prop) {
+import "./List.css";
+
+export default function List({ carro }) {
   return (
-    <div className="row p-3">
-      <div className="col-4 border p-3">
-        <img></img>
+    <div className="list-container">
+      <div className="car-image">
+        <img src={carro.foto} alt="An Car Image" />
       </div>
-      <div className="col-8 d-flex flex-column">
-        <span className="py-2">{prop.carName} Ford Ka</span>
-        <span className="description">{prop.Description}</span>
-        <span className="preço">{prop.valor}</span>
+      <div className="car-info">
+        <span className="car-name">{carro.nome}</span>
+        <span className="description">{carro.marca}</span>
+        <span className="price">Valor: {carro.valor}</span>
         <span className="whatsapp">Fale diretamente com o vendedor:</span>
-        <span className=""><i className="bi bi-whatsapp"></i> +55 99 99999-9999</span>
+        <span className="whatsapp-number">
+          <i className="bi bi-whatsapp"></i> +55 99 99999-9999
+        </span>
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-export default function Header(props){
+export default function Header(){
   return (
     <header>
       <nav className="navbar bg-white border-bottom box-shadow mb-3">
@@ -10,6 +10,7 @@ export default function Header(props){
         </div>
         <div className="align-right">
           <Link to="/Login" className="navbar-brand">Login</Link>
+          <Link to="/ListCarro" className="navbar-brand">Gerenciar</Link>
         </div>
       </nav>
     </header>
