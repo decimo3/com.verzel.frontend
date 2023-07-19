@@ -13,8 +13,8 @@ export default function App() {
         <Routes>
           <Route exact path="/" element={<Inicio/>} />
           <Route path="/Login" element={<Login/>} />
-          <Route path="*" component={<NotFound/>} />
-          <Route path="/ListCarro" component={<ListCarro/>} />
+          <Route path="*" element={<NotFound/>} />
+          <Route path="/ListCarro" element={<ListCarro/>} />
           {/* <Route path="/Create" element={<Create/>} />
           <Route path="/Edit" element={<Edit/>} />
           <Route path="/Details" element={<Details/>} />
