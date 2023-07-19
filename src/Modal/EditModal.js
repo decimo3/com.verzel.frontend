@@ -3,24 +3,26 @@ import { Carro } from '../Models/Carro';
 
 const EditModal = ({ objectData, onClose }) => {
   console.dir(objectData);
+  
   const obj = {
-    Nome: objectData.Nome,
-    Foto: objectData.Foto,
-    Marca: objectData.Marca,
-    Valor: objectData.Valor
+    Nome: objectData.nome,
+    Foto: objectData.foto,
+    Marca: objectData.marca,
+    Valor: objectData.valor
   }
   console.log(obj);
+
   const [showModal, setShowModal] = useState(true);
-  const [nome, setNome] = useState(objectData.Nome || ''); // Provide an initial default value
-  const [foto, setFoto] = useState(objectData.Foto || ''); // Provide an initial default value
-  const [marca, setMarca] = useState(objectData.Marca || ''); // Provide an initial default value
-  const [valor, setValor] = useState(objectData.Valor || ''); // Provide an initial default value
+  const [nome, setNome] = useState(obj.Nome || ''); // Provide an initial default value
+  const [foto, setFoto] = useState(obj.Foto || ''); // Provide an initial default value
+  const [marca, setMarca] = useState(obj.Marca || ''); // Provide an initial default value
+  const [valor, setValor] = useState(obj.Valor || ''); // Provide an initial default value
 
   useEffect(() => {
-    setNome(objectData.Nome || ''); // Provide an initial default value
-    setFoto(objectData.Foto || ''); // Provide an initial default value
-    setMarca(objectData.Marca || ''); // Provide an initial default value
-    setValor(objectData.Valor || ''); // Provide an initial default value
+    setNome(obj.Nome || ''); // Provide an initial default value
+    setFoto(obj.Foto || ''); // Provide an initial default value
+    setMarca(obj.Marca || ''); // Provide an initial default value
+    setValor(obj.Valor || ''); // Provide an initial default value
   }, [objectData]);
 
   const handleCloseModal = () => {
@@ -28,19 +30,35 @@ const EditModal = ({ objectData, onClose }) => {
     onClose();
   };
 
+  async function PutCars(editedCarro) {
+    const edit = JSON.stringify(editedCarro);
+    const request = {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: edit
+    };
+    try {
+      const response = await fetch(BASE_URL + "/carros", request);
+      return await response.json();
+    } catch (error) {
+      console.log(error);
+      return [];
+    }
+  }
+
   const handleFormSubmit = (e) => {
     e.preventDefault();
     const editedCarro = new Carro(nome, marca, foto, valor);
     console.log(editedCarro);
-    // Add logic here to save the edited data to the server or perform any other action.
-    // For example, you might want to call a function passed as a prop to handle the update.
-    // The editedCarro object holds the updated data.
+    PutCars(editedCarro)
   };
 
   return (
     <>
       {showModal && (
-        <div className="modal-backdrop" onClick={handleCloseModal}>
+        <div className="modal-backdrop">
           <div className="modal-dialog modal-dialog-centered" role="document">
             <div className="modal-content">
               <div className="modal-header">

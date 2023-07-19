@@ -34,7 +34,7 @@ export default function ListCarro() {
     };
     try {
       const response = await fetch(BASE_URL + "/carros", request);
-      return response.json();
+      return await response.json();
     } catch (error) {
       console.log(error);
       return [];
